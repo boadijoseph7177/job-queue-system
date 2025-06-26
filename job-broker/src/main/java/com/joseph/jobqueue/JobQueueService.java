@@ -1,8 +1,9 @@
 package com.joseph.jobqueue;
 
-import com.joseph.jobqueue.Job;
+import org.springframework.stereotype.Service;
 import java.util.concurrent.PriorityBlockingQueue;
 
+@Service
 public class JobQueueService {
     private final PriorityBlockingQueue<Job> queue;
 

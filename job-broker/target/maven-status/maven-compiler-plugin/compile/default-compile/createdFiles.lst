@@ -1,1 +1,3 @@
+com\joseph\jobqueue\JobBrokerApplication.class
+com\joseph\jobqueue\JobController.class
 com\joseph\jobqueue\JobQueueService.class
