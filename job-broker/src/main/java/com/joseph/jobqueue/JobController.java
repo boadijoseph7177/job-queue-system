@@ -4,9 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
-import java.util.Map;
+import java.util.Collection;
 import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
+import org.springframework.http.ResponseEntity;
 
 @RestController
 @RequestMapping("/jobs")
@@ -14,9 +14,6 @@ public class JobController {
 
     @Autowired
     private JobQueueService jobQueueService;
-
-    // In-memory status score, will be replaced by a database in production
-    private Map<String, Job> jobstore = new ConcurrentHashMap<>();
 
     @PostMapping
     public Job submitJob(@RequestBody Job jobRequest) {
@@ -31,15 +28,21 @@ public class JobController {
                 .build();
 
         jobQueueService.submitJob(job);
-        jobstore.put(id, job);
         System.out.println("Job submitted: " + job);
         return job;
     }
 
-    @GetMapping("/{id}")
-    public Job getJob(@PathVariable String id) {
-
-        return jobstore.get(id);
+    @GetMapping
+    public Collection<Job> getAllJobs() {
+        return jobQueueService.getAllJobs();
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getJob(@PathVariable String id) {
+        Job job = jobQueueService.getJob(id);
+        if (job == null) {
+            return ResponseEntity.status(404).body("Job with ID " + id + " not found.");
+        }
+        return ResponseEntity.ok(job);
+    }
 }

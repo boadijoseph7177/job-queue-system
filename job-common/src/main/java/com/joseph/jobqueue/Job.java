@@ -2,11 +2,17 @@ package com.joseph.jobqueue;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.extern.jackson.Jacksonized;
 
 import java.time.Instant;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Jacksonized
 
 public class Job implements Comparable<Job> {
     private String id;
