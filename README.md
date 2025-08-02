@@ -47,16 +47,38 @@ It uses Java’s `PriorityBlockingQueue`, `ExecutorService`, and `ConcurrentHash
 4. Job status is updated in a concurrent map for tracking.
 5. Completed or failed jobs are stored for future inspection.
 
-## Folder Structure
-src/
-└── main/
-├── java/
-│ └── com/example/jobqueue/
-│ ├── controller/ # REST endpoints
-│ ├── model/ # Job, JobStatus, JobType enums/classes
-│ ├── service/ # JobQueueService
-│ └── worker/ # JobWorker, WorkerPoolManager
-└── resources/
+## 📁 Folder Structure
+
+```
+java-job-queue/
+├── broker/                     # Spring Boot REST API (Job Broker)
+│   ├── src/
+│   │   └── main/
+│   │       └── java/
+│   │           └── com/
+│   │               └── joseph/
+│   │                   └── jobqueue/
+│   │                       ├── controller/     # REST Controllers
+│   │                       ├── model/          # Job model classes
+│   │                       ├── service/        # Job queue logic
+│   │                       └── BrokerApplication.java
+│   └── pom.xml
+│
+├── worker/                     # Worker that processes jobs
+│   ├── src/
+│   │   └── main/
+│   │       └── java/
+│   │           └── com/
+│   │               └── joseph/
+│   │                   └── jobqueue/
+│   │                       └── JobWorker.java  # Main worker class
+│   └── pom.xml
+│
+├── .gitignore
+├── README.md
+└── pom.xml                     # Parent Maven project file
+```
+
 
 ## Getting Started
 
